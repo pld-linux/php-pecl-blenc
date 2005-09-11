@@ -1,25 +1,27 @@
 %define		_modname	blenc
 %define		_status		alpha
+%define		_sysconfdir	/etc/php
+%define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 
+# TODO
+# - doesn't build
 Summary:	%{_modname} - transparent PHP script encryption using Blowfish
 Summary(pl):	%{_modname} - transparentne szyfrowanie skryptów algorytmem Blowfish
 Name:		php-pecl-%{_modname}
 Version:	1.0
 %define	_ver	alpha
-Release:	0.%{_ver}
+Release:	0.%{_ver}.1
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_ver}.tgz
 # Source0-md5:	178ea0333257b396cc19dfea8ea0e429
 URL:		http://pecl.php.net/package/blenc/
-BuildRequires:	libtool
 BuildRequires:	php-devel >= 3:5.0.0
-Requires:	php-common >= 3:5.0.0
+BuildRequires:	rpmbuild(macros) >= 1.230
+%requires_eq_to php-common php-devel
+Requires:	%{_sysconfdir}/conf.d
 Obsoletes:	php-pear-%{_modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_sysconfdir	/etc/php
-%define		extensionsdir	%{_libdir}/php
 
 %description
 BLENC is an extension which hooks into the Zend Engine, allowing for
@@ -52,22 +54,29 @@ phpize
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{extensionsdir}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/conf.d,%{extensionsdir}}
 
 install %{_modname}-%{version}%{_ver}/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
+cat <<'EOF' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_modname}.ini
+; Enable %{_modname} extension module
+extension=%{_modname}.so
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{_sbindir}/php-module-install install %{_modname} %{_sysconfdir}/php-cgi.ini
+[ ! -f /etc/apache/conf.d/??_mod_php.conf ] || %service -q apache restart
+[ ! -f /etc/httpd/httpd.conf/??_mod_php.conf ] || %service -q httpd restart
 
-%preun
-if [ "$1" = "0" ]; then
-	%{_sbindir}/php-module-install remove %{_modname} %{_sysconfdir}/php-cgi.ini
+%postun
+if [ "$1" = 0 ]; then
+	[ ! -f /etc/apache/conf.d/??_mod_php.conf ] || %service -q apache restart
+	[ ! -f /etc/httpd/httpd.conf/??_mod_php.conf ] || %service -q httpd restart
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc %{_modname}-%{version}%{_ver}/CREDITS
+%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so
