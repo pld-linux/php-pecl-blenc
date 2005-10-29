@@ -2,7 +2,6 @@
 %define		_status		alpha
 %define		_sysconfdir	/etc/php
 %define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
-
 # TODO
 # - doesn't build
 Summary:	%{_modname} - transparent PHP script encryption using Blowfish
@@ -10,14 +9,15 @@ Summary(pl):	%{_modname} - transparentne szyfrowanie skryptów algorytmem Blowfis
 Name:		php-pecl-%{_modname}
 Version:	1.0
 %define	_ver	alpha
-Release:	0.%{_ver}.1
+%define	_rel	1.2
+Release:	0.%{_ver}.%{_rel}
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_ver}.tgz
 # Source0-md5:	178ea0333257b396cc19dfea8ea0e429
 URL:		http://pecl.php.net/package/blenc/
 BuildRequires:	php-devel >= 3:5.0.0
-BuildRequires:	rpmbuild(macros) >= 1.238
+BuildRequires:	rpmbuild(macros) >= 1.254
 %{?requires_php_extension}
 Requires:	%{_sysconfdir}/conf.d
 Obsoletes:	php-pear-%{_modname}
