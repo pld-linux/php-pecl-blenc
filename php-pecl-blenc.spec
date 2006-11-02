@@ -17,7 +17,7 @@ Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_ver}.tgz
 # Source0-md5:	178ea0333257b396cc19dfea8ea0e429
 URL:		http://pecl.php.net/package/blenc/
 BuildRequires:	php-devel >= 3:5.0.0
-BuildRequires:	rpmbuild(macros) >= 1.254
+BuildRequires:	rpmbuild(macros) >= 1.322
 %{?requires_php_extension}
 Requires:	%{_sysconfdir}/conf.d
 Obsoletes:	php-pear-%{_modname}
