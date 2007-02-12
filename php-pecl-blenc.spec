@@ -4,7 +4,7 @@
 %define		_status		alpha
 #
 Summary:	%{_modname} - transparent PHP script encryption using Blowfish
-Summary(pl.UTF-8):   %{_modname} - transparentne szyfrowanie skryptów algorytmem Blowfish
+Summary(pl.UTF-8):	%{_modname} - transparentne szyfrowanie skryptów algorytmem Blowfish
 Name:		php-pecl-%{_modname}
 Version:	1.0
 %define	_ver	alpha
