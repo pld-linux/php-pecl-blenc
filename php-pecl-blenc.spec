@@ -4,7 +4,7 @@
 %define		_status		alpha
 #
 Summary:	%{_modname} - transparent PHP script encryption using Blowfish
-Summary(pl):	%{_modname} - transparentne szyfrowanie skryptów algorytmem Blowfish
+Summary(pl.UTF-8):   %{_modname} - transparentne szyfrowanie skryptÃ³w algorytmem Blowfish
 Name:		php-pecl-%{_modname}
 Version:	1.0
 %define	_ver	alpha
@@ -32,12 +32,12 @@ reverse engineering difficult.
 
 In PECL status of this extension is: %{_status}.
 
-%description -l pl
-BLENC jest rozszerzeniem przyczepiaj±cym siê do silnika Zend,
-pozwalaj±c na transparentne szyfrowanie i wykonywanie skryptów PHP
-przy u¿yciu algorytmu blowfish. Nie dostarcza on kompleksowej ochrony
-(ci±gle mo¿liwe jest disasemblacja skryptu do postaci instrukcji przy
-u¿yciu narzêdzi takich jak XDebug), jednak¿e trzyma ludzi z dala od
+%description -l pl.UTF-8
+BLENC jest rozszerzeniem przyczepiajÄ…cym siÄ™ do silnika Zend,
+pozwalajÄ…c na transparentne szyfrowanie i wykonywanie skryptÃ³w PHP
+przy uÅ¼yciu algorytmu blowfish. Nie dostarcza on kompleksowej ochrony
+(ciÄ…gle moÅ¼liwe jest disasemblacja skryptu do postaci instrukcji przy
+uÅ¼yciu narzÄ™dzi takich jak XDebug), jednakÅ¼e trzyma ludzi z dala od
 kodu i utrudnia jakikolwiek reverse engineering.
 
 To rozszerzenie ma w PECL status: %{_status}.
